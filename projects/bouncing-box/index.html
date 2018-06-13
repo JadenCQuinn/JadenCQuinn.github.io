@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bouncing Box</title>
+	<script src="jquery.min.js"></script>
+
+<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+	<!-- BEGIN CSS -->
+	<style>
+		/* TODO 1 */
+		[class="box"] {
+			display: block;
+			position: absolute;
+			width: 70px;
+			height: 70px;
+			top: 100px;
+			left: 0px;
+			background-color: Skyblue;
+			font-size: 300%;
+			text-align: center;
+			border-radius: 35px;
+		}
+	</style>
+
+</head>
+<body class="board">
+	<!-- HTML for the box -->
+	<div class="box">?</div>
+
+	<!-- BEGIN JAVASCRIPT -->
+	<script>
+		(function(){
+			'use strict'
+			/* global &*/
+
+			// Variable declarations
+			var box;
+			var boardWidth;
+			var boardHeight;
+			var update;
+			var handleBoxClick;
+			var directionx;
+			    directionx= 1;
+			var directiony;
+			    directiony= 1;
+
+			// jQuery stuff setup for you
+			box = $('.box');
+			boardWidth = $('.board').width();
+			boardHeight = $('.board').height();
+
+			// TODO 2
+            var positionx;
+            var positiony;
+            var points;
+            var speed;
+            
+            positiony=0;
+            positionx=100;
+            points=0;
+            speed=10;
+            box.css('left', positionx);      // changes the 'left' css property of the box to value of var position
+            box.css('top', positiony);
+            box.text(points);               // changes the text of the box to display the value of var points
+			
+			function update() {
+				positionx = positionx + (speed * directionx);
+                if(positionx > boardWidth) {
+                	directionx= -1;
+                } else if (positionx < 0) {
+                	directionx=1;
+                }
+                
+                positiony = positiony + (speed *directiony);
+                if(positiony > boardHeight + 850) {
+                	directiony = -1;
+                } else if (positiony <0) {
+                	directiony =1;
+                }
+                box.css('left', positionx);
+                box.css('top',positiony);
+               
+	          
+				// TODO 3 / 6 / 7 / 8
+				box.text(points);
+             }              
+			
+
+
+			
+			function handleBoxClick() {
+				speed = speed +3;
+				positionx = 0;
+				positiony = 0;
+				// TODO 4 / 5
+			
+				points = points +1;
+				box.text(points);
+			};
+
+
+			//this calls update every 50 milliseconds
+		    setInterval(update, 50);
+		    
+			// this calls the handle handleBoxClick function every time the box is clicked on
+			box.on('click', handleBoxClick);
+		})();
+	</script>
+</body>
+</html>
